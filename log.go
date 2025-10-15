@@ -1,3 +1,4 @@
+// Package log is a package that implements handler for logger
 package log
 
 import (
@@ -33,7 +34,7 @@ func (b *betterLocalHandler) Handle(ctx context.Context, r slog.Record) error {
 		)
 	}
 
-	attrs := getJsonAttrs(r)
+	attrs := getJSONAttrs(r)
 
 	msg := fmt.Sprintf("[%s] %s - %s",
 		timestamp, lvl,
@@ -86,7 +87,7 @@ func makeLvlColorful(lvl slog.Level) string {
 	return lvl.String()
 }
 
-func getJsonAttrs(r slog.Record) []byte {
+func getJSONAttrs(r slog.Record) []byte {
 	fields := make(map[string]any, r.NumAttrs())
 	r.Attrs(func(a slog.Attr) bool {
 		fields[a.Key] = a.Value.Any()
